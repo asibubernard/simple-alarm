@@ -15,8 +15,19 @@ def set_alarm(hour, minute):
         # Sleep for the amount of time until the alarm should go off
         time.sleep((alarm_time - current_time).total_seconds())
     # Print a message to indicate that the alarm has gone off
-    print("Time up!")
-    playsound("alarm_sound.mp3")
+    
+    while True:
+        # Play the alarm sound
+        playsound("alarm_sound.mp3")
+        # Ask the user if they want to snooze the alarm
+        snooze = input("Snooze for 5 minutes? (y/n) ")
+        if snooze == 'y':
+            # Set the alarm time to 5 minutes in the future
+            alarm_time = datetime.datetime.now(pytz.timezone('UTC')) + datetime.timedelta(minutes=5)
+            # Sleep for the amount of time until the snoozed alarm should go off
+            time.sleep((alarm_time - current_time).total_seconds())
+        else:
+            break
 
 if __name__ == "__main__":
     # Create an argument parser
